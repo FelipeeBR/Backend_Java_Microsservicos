@@ -42,7 +42,7 @@ public class ShopController {
         return shopService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/shopping")
     public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) {
         return shopService.save(shopDTO);
     }
