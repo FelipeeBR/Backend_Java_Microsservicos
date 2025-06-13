@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public class ProductDTO {
 
     @NotBlank
-    private String productIndentifier;
+    private String productIdentifier;
     @NotBlank
     private String nome;
     @NotBlank
@@ -19,11 +19,11 @@ public class ProductDTO {
     private CategoryDTO category;
 
 
-    public String getProductIndentifier() {
-        return productIndentifier;
+    public String getProductIdentifier() {
+        return productIdentifier;
     }
-    public void setProductIndentifier(String productIndentifier) {
-        this.productIndentifier = productIndentifier;
+    public void setProductIdentifier(String productIndentifier) {
+        this.productIdentifier = productIndentifier;
     }
     public String getNome() {
         return nome;
@@ -54,7 +54,7 @@ public class ProductDTO {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setNome(product.getNome());
         productDTO.setPreco(product.getPreco());
-        productDTO.setProductIndentifier(product.getProductIdentifier());
+        productDTO.setProductIdentifier(product.getProductIdentifier());
         productDTO.setDescricao(product.getDescricao());
         if(product.getCategory() != null) {
             productDTO.setCategory(CategoryDTO.convert(product.getCategory()));

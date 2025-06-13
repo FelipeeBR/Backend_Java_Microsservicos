@@ -5,11 +5,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.backendproject.productapi.dto.ProductDTO;
 import com.backendproject.productapi.model.Product;
 import com.backendproject.productapi.repository.ProductRepository;
 
+@Service
 public class ProductService {
 
     @Autowired

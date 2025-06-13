@@ -3,11 +3,16 @@ package com.backendproject.productapi.model;
 import com.backendproject.productapi.dto.ProductDTO;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity(name = "product")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private Float preco;
@@ -72,7 +77,7 @@ public class Product {
         product.setPreco(productDTO.getPreco()); 
         product.setDescricao(productDTO.getDescricao()); 
         product.setProductIdentifier(
-        productDTO.getProductIndentifier());
+        productDTO.getProductIdentifier());
         if(productDTO.getCategory() != null) {
             product.setCategory(Category.convert(productDTO.getCategory()));
         }
