@@ -1,4 +1,4 @@
-package com.backendproject.shopping_api;
+package com.backendproject.shoppingapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
