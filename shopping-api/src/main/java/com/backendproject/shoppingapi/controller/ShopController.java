@@ -1,15 +1,19 @@
-package com.backendproject.shoppingapi;
+package com.backendproject.shoppingapi.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backendproject.shoppingapi.dto.ShopDTO;
+import com.backendproject.shoppingapi.dto.ShopReportDTO;
 import com.backendproject.shoppingapi.service.ShopService;
 
 import jakarta.validation.Valid;
@@ -45,5 +49,15 @@ public class ShopController {
     @PostMapping("/shopping")
     public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) {
         return shopService.save(shopDTO);
+    }
+
+    @GetMapping("/shopping/search")
+    public List <ShopDTO> getShopsByFilter(@RequestParam(name = "dataInicio", required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio, @RequestParam(name = "dataFim", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFim, @RequestParam(name = "valorMinimo", required = false) Float valorMinimo) {
+        return shopService.getShopsByFilter(dataInicio, dataFim, valorMinimo);
+    }
+
+    @GetMapping("/shopping/report")
+    public ShopReportDTO getReportByDate(@RequestParam(name = "dataInicio", required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio, @RequestParam(name = "dataFim", required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFim) {
+        return shopService.getReportByDate(dataInicio, dataFim);
     }
 }
