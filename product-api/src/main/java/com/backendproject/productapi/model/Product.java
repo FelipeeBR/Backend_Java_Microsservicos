@@ -1,6 +1,6 @@
 package com.backendproject.productapi.model;
 
-import com.backendproject.productapi.dto.ProductDTO;
+import com.backendproject.shoppingclient.dto.ProductDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -6,11 +6,14 @@ import java.util.stream.Collectors;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import com.backendproject.userapi.dto.UserDTO;
+import com.backendproject.shoppingclient.dto.UserDTO;
 import com.backendproject.userapi.model.User;
 import com.backendproject.userapi.repository.UserRepository;
+import com.backendproject.userapi.converter.DTOConverter;
 
 @Service
 public class UserService {
@@ -55,5 +58,13 @@ public class UserService {
     public List<UserDTO> queryByName(String name) {
         List<User> usuarios = userRepository.queryByNomeLike(name);
         return usuarios.stream().map(UserDTO::convert).collect(Collectors.toList());
+    }
+
+    public UserDTO getUserByCpf(String cpf) {
+        RestTemplate restTemplate = new RestTemplate(); 
+        String url = "http://localhost:8080/user/cpf/" + cpf; 
+        ResponseEntity<UserDTO> response = 
+        restTemplate.getForEntity(url, UserDTO.class);
+        return response.getBody();
     }
 }

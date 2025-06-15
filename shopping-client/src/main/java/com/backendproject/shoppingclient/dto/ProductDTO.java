@@ -1,4 +1,4 @@
-package com.backendproject.productapi.dto;
+package com.backendproject.shoppingclient.dto;
 
 import com.backendproject.productapi.model.Product;
 

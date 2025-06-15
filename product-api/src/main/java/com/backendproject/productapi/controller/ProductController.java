@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backendproject.productapi.dto.ProductDTO;
 import com.backendproject.productapi.model.Product;
 import com.backendproject.productapi.service.ProductService;
+import com.backendproject.shoppingclient.dto.ProductDTO;
 
 import jakarta.validation.Valid;
 

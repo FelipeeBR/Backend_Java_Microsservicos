@@ -8,17 +8,26 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.backendproject.shoppingapi.dto.ShopDTO;
-import com.backendproject.shoppingapi.dto.ShopReportDTO;
+import com.backendproject.shoppingapi.converter.DTOConverter;
 import com.backendproject.shoppingapi.model.Shop;
 import com.backendproject.shoppingapi.repository.ReportRepository;
 import com.backendproject.shoppingapi.repository.ShopRepository;
+import com.backendproject.shoppingclient.dto.ItemDTO;
+import com.backendproject.shoppingclient.dto.ProductDTO;
+import com.backendproject.shoppingclient.dto.ShopDTO;
+import com.backendproject.shoppingclient.dto.ShopReportDTO;
+import com.backendproject.userapi.service.UserService;
 
 @Service
 public class ShopService {
     @Autowired
     private ShopRepository shopRepository;
     private ReportRepository reportRepository;
+
+    @Autowired
+    private ProductDTO productService;
+    @Autowired
+    private UserService userService;
     
     public List<ShopDTO> getAll() {
         List<Shop> shops = shopRepository.findAll();
@@ -43,13 +52,21 @@ public class ShopService {
         return null;
     }
 
-    public ShopDTO save(ShopDTO shopDTO) {
-        shopDTO.setTotal(shopDTO.getItems().stream().map(x -> x.getPrice()).reduce((float) 0, Float::sum));
+    public ShopDTO save(ShopDTO shopDTO) { 
+        if(userService.getUserByCpf(shopDTO.getUserIdentifier()) == null) {
+            return null;
+        }
+        if(!validateProducts(shopDTO.getItems())) {
+            return null;
+        }
+        shopDTO.setTotal(shopDTO.getItems()
+        .stream()
+        .map(x -> x.getPrice())
+        .reduce((float) 0, Float::sum));
         Shop shop = Shop.convert(shopDTO);
         shop.setDate(new Date());
-        
         shop = shopRepository.save(shop);
-        return ShopDTO.convert(shop);
+        return DTOConverter.convert(shop);
     }
 
     public List<ShopDTO> getShopsByFilter(Date dataInicio, Date dataFim, Float valorMinimo) {
@@ -59,5 +76,18 @@ public class ShopService {
 
     public ShopReportDTO getReportByDate(Date dataInicio, Date dataFim) {
         return reportRepository.getReportByDate(dataInicio, dataFim);
+    }
+
+    private boolean validateProducts(List<ItemDTO> items) {
+        for(ItemDTO item : items) {
+            ProductDTO productDTO = productService
+            .getProductByIdentifier(
+            item.getProductIdentifier());
+            if(productDTO == null) {
+                return false;
+            }       
+            item.setPrice(productDTO.getPreco());
+        }
+        return true; 
     }
 }
