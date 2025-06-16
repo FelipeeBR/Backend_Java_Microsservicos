@@ -1,5 +1,8 @@
 package com.backendproject.shoppingapi.service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -11,18 +14,23 @@ import com.backendproject.shoppingclient.exception.UserNotFoundException;
 public class UserService {
     public UserDTO getUserByCpf(String cpf, String key) {
         try {
-            RestTemplate restTemplate = new RestTemplate(); 
-            String url = "http://localhost:8080"; 
+            RestTemplate restTemplate = new RestTemplate();
+            String baseUrl = "http://localhost:8080";
 
-            UriComponentsBuilder builder = UriComponentsBuilder
-            .fromHttpUrl(url + "/user/cpf/" + cpf);
-            
-            builder.queryParam("key", key);
+            URI uri = UriComponentsBuilder
+                .fromUri(new URI(baseUrl))
+                .path("/user/cpf/{cpf}")
+                .queryParam("key", key)
+                .buildAndExpand(cpf)
+                .toUri();
 
-            ResponseEntity<UserDTO> response = restTemplate.getForEntity(builder.toUriString(), UserDTO.class); 
-            return response.getBody(); 
+            ResponseEntity<UserDTO> response = restTemplate.getForEntity(uri, UserDTO.class);
+            return response.getBody();
+
         } catch (HttpClientErrorException.NotFound e) {
             throw new UserNotFoundException();
-        } 
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Erro ao construir URI", e);
+        }
     }
 }

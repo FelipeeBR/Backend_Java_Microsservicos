@@ -29,13 +29,13 @@ public class ProductService {
 
     public List<ProductDTO> getAll() {
         List<Product> products = productRepository.findAll();
-        return products.stream().map(ProductDTO::convert).collect(Collectors.toList());
+        return products.stream().map(DTOConverter::convert).collect(Collectors.toList());
     }
 
     public ProductDTO findByProductIdentifier(String productIdentifier) {
         Product product = productRepository.findByProductIdentifier(productIdentifier);
         if(product != null) {
-            return ProductDTO.convert(product);
+            return DTOConverter.convert(product);
         }
         throw new ProductNotFoundException();
     }
