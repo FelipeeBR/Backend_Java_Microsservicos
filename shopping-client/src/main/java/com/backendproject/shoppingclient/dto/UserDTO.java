@@ -11,6 +11,8 @@ public class UserDTO {
     private String email;
     private String telefone;
     private Date dataCadastro;
+    private String key;
+
 
     public static UserDTO convert(User user) {
         UserDTO userDTO = new UserDTO();
@@ -23,6 +25,13 @@ public class UserDTO {
         return userDTO;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getNome() {
         return nome;
