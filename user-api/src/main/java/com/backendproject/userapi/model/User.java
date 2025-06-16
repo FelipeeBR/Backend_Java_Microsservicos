@@ -9,7 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity(name = "user")
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +23,15 @@ public class User {
     private Date dataCadastro;
 
 
-    public static User convert(UserDTO userDTO) {
+    public static User convert(UserDTO dto) {
         User user = new User();
-        user.setNome(userDTO.getNome());
-        user.setCpf(userDTO.getCpf());
-        user.setEndereco(userDTO.getEndereco());
-        user.setEmail(userDTO.getEmail());
-        user.setTelefone(userDTO.getTelefone());
-        user.setDataCadastro(userDTO.getDataCadastro());
-        user.setKey(userDTO.getKey());
+        user.setNome(dto.getNome());
+        user.setCpf(dto.getCpf());
+        user.setEndereco(dto.getEndereco());
+        user.setEmail(dto.getEmail());
+        user.setTelefone(dto.getTelefone());
+        user.setDataCadastro(new Date());
+        user.setKey(dto.getKey());
         return user;
     }
 
@@ -84,7 +84,5 @@ public class User {
     }
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
-    }
-
-    
+    } 
 }

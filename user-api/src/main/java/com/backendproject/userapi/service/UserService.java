@@ -26,13 +26,13 @@ public class UserService {
 
     public List<UserDTO> getAll() {
         List<User> usuarios = userRepository.findAll();
-        return usuarios.stream().map(UserDTO::convert).collect(Collectors.toList());
+        return usuarios.stream().map(DTOConverter::convert).collect(Collectors.toList());
     }
 
     public UserDTO findById(Long userId) {
         Optional<User> usuario = userRepository.findById(userId);
         if(usuario.isPresent()) {
-            return UserDTO.convert(usuario.get());
+            return DTOConverter.convert(usuario.get());
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class UserService {
     public UserDTO save(UserDTO userDTO) {
         userDTO.setKey(UUID.randomUUID().toString());
         User user = userRepository.save(User.convert(userDTO));
-        return UserDTO.convert(user);
+        return DTOConverter.convert(user);
     }
 
     public UserDTO delete(Long userId) {
@@ -61,7 +61,7 @@ public class UserService {
 
     public List<UserDTO> queryByName(String name) {
         List<User> usuarios = userRepository.queryByNomeLike(name);
-        return usuarios.stream().map(UserDTO::convert).collect(Collectors.toList());
+        return usuarios.stream().map(DTOConverter::convert).collect(Collectors.toList());
     }
 
     public UserDTO getUserByCpf(String cpf) {
