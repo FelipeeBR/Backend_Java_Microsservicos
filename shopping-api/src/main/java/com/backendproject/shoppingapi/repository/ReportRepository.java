@@ -3,7 +3,7 @@ package com.backendproject.shoppingapi.repository;
 import java.util.Date;
 import java.util.List;
 
-import com.backendproject.shoppingapi.dto.ShopReportDTO;
+import com.backendproject.shoppingclient.dto.ShopReportDTO;
 import com.backendproject.shoppingapi.model.Shop;
 
 public interface ReportRepository {

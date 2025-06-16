@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.backendproject.shoppingapi.dto.ShopDTO;
+import com.backendproject.shoppingclient.dto.ShopDTO;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;

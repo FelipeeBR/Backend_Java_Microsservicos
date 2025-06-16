@@ -1,6 +1,6 @@
 package com.backendproject.shoppingapi.model;
 
-import com.backendproject.shoppingapi.dto.ItemDTO;
+import com.backendproject.shoppingclient.dto.ItemDTO;
 
 import jakarta.persistence.Embeddable;
 

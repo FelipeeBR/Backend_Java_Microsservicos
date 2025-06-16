@@ -16,7 +16,8 @@ import com.backendproject.shoppingclient.dto.ItemDTO;
 import com.backendproject.shoppingclient.dto.ProductDTO;
 import com.backendproject.shoppingclient.dto.ShopDTO;
 import com.backendproject.shoppingclient.dto.ShopReportDTO;
-import com.backendproject.userapi.service.UserService;
+import com.backendproject.shoppingclient.dto.UserDTO;
+import com.backendproject.shoppingapi.service.UserService;
 
 @Service
 public class ShopService {
@@ -52,17 +53,10 @@ public class ShopService {
         return null;
     }
 
-    public ShopDTO save(ShopDTO shopDTO) { 
-        if(userService.getUserByCpf(shopDTO.getUserIdentifier()) == null) {
-            return null;
-        }
-        if(!validateProducts(shopDTO.getItems())) {
-            return null;
-        }
-        shopDTO.setTotal(shopDTO.getItems()
-        .stream()
-        .map(x -> x.getPrice())
-        .reduce((float) 0, Float::sum));
+    public ShopDTO save(ShopDTO shopDTO, String key) { 
+        UserDTO userDTO = userService.getUserByCpf(shopDTO.getUserIdentifier(), key);
+        validateProducts(shopDTO.getItems());
+        shopDTO.setTotal(shopDTO.getItems().stream().map(x -> x.getPrice()).reduce((float) 0, Float::sum));
         Shop shop = Shop.convert(shopDTO);
         shop.setDate(new Date());
         shop = shopRepository.save(shop);
@@ -80,9 +74,7 @@ public class ShopService {
 
     private boolean validateProducts(List<ItemDTO> items) {
         for(ItemDTO item : items) {
-            ProductDTO productDTO = productService
-            .getProductByIdentifier(
-            item.getProductIdentifier());
+            ProductDTO productDTO = productService.getProductByIdentifier(item.getProductIdentifier());
             if(productDTO == null) {
                 return false;
             }       

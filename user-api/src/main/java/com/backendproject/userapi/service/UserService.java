@@ -54,7 +54,7 @@ public class UserService {
     public UserDTO findByCpf(String cpf, String key) {
         User user = userRepository.findByCpfAndKey(cpf, key);
         if(user != null) {
-            return UserDTO.convert(user);
+            return DTOConverter.convert(user);
         }
         throw new UserNotFoundException();
     }
