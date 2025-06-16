@@ -7,11 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.backendproject.productapi.model.Product;
 import com.backendproject.productapi.repository.ProductRepository;
 import com.backendproject.shoppingclient.dto.ProductDTO;
+import com.backendproject.shoppingclient.exception.ProductNotFoundException;
+import com.backendproject.shoppingclient.exception.UserNotFoundException;
 
 @Service
 public class ProductService {
@@ -29,7 +32,7 @@ public class ProductService {
         if(product != null) {
             return ProductDTO.convert(product);
         }
-        return null;
+        throw new ProductNotFoundException();
     }
 
     public ProductDTO save(ProductDTO productDTO) {
@@ -42,14 +45,18 @@ public class ProductService {
         if(product.isPresent()) {
             productRepository.delete(product.get());
         }
+        throw new ProductNotFoundException();
     }
 
     public ProductDTO getProductByIdentifier(String productIdentifier) { 
-        RestTemplate restTemplate = new RestTemplate(); 
-        String url = 
-        "http://localhost:8081/product/" + productIdentifier; 
-        ResponseEntity<ProductDTO> response = 
-        restTemplate.getForEntity(url, ProductDTO.class); 
-        return response.getBody(); 
+        try {
+            RestTemplate restTemplate = new RestTemplate(); 
+            String url = "http://localhost:8081/product/" + productIdentifier; 
+            ResponseEntity<ProductDTO> response = 
+            restTemplate.getForEntity(url, ProductDTO.class); 
+            return response.getBody(); 
+        } catch (HttpClientErrorException.NotFound e) {
+            throw new UserNotFoundException();
+        }
     }
 }

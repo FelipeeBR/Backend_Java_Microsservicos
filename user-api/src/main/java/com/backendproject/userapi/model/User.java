@@ -2,7 +2,7 @@ package com.backendproject.userapi.model;
 
 import java.util.Date;
 
-import com.backendproject.userapi.dto.UserDTO;
+import com.backendproject.shoppingclient.dto.UserDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

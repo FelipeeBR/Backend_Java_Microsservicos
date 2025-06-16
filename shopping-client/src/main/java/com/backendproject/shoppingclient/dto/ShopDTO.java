@@ -1,4 +1,4 @@
-package com.backendproject.shoppingapi.dto;
+package com.backendproject.shoppingclient.dto;
 
 import java.util.Date;
 import java.util.List;

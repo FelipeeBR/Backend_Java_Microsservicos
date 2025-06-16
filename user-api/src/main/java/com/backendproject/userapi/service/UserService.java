@@ -8,9 +8,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.backendproject.shoppingclient.dto.UserDTO;
+import com.backendproject.shoppingclient.exception.UserNotFoundException;
 import com.backendproject.userapi.model.User;
 import com.backendproject.userapi.repository.UserRepository;
 import com.backendproject.userapi.converter.DTOConverter;
@@ -61,10 +63,14 @@ public class UserService {
     }
 
     public UserDTO getUserByCpf(String cpf) {
-        RestTemplate restTemplate = new RestTemplate(); 
-        String url = "http://localhost:8080/user/cpf/" + cpf; 
-        ResponseEntity<UserDTO> response = 
-        restTemplate.getForEntity(url, UserDTO.class);
-        return response.getBody();
+        try {
+            RestTemplate restTemplate = new RestTemplate(); 
+            String url = "http://localhost:8080/user/cpf/" + cpf; 
+            ResponseEntity<UserDTO> response = 
+            restTemplate.getForEntity(url, UserDTO.class);
+            return response.getBody(); 
+        } catch (HttpClientErrorException.NotFound e) {
+            throw new UserNotFoundException();
+        } 
     }
 }

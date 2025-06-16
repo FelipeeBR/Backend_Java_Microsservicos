@@ -1,4 +1,4 @@
-package com.backendproject.shoppingapi.dto;
+package com.backendproject.shoppingclient.dto;
 
 public class ShopReportDTO {
     private Integer count;
