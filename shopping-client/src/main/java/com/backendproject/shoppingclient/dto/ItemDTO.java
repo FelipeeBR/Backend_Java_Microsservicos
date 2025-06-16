@@ -1,7 +1,5 @@
 package com.backendproject.shoppingclient.dto;
 
-import com.backendproject.shoppingapi.model.Item;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -23,12 +21,5 @@ public class ItemDTO {
     }
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public static ItemDTO convert(Item item) {
-        ItemDTO itemDTO = new ItemDTO();
-        itemDTO.setProductIdentifier(item.getProductIdentifier());
-        itemDTO.setPrice(item.getPrice());
-        return itemDTO;
     }
 }

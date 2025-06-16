@@ -2,7 +2,6 @@ package com.backendproject.shoppingclient.dto;
 
 import java.util.Date;
 
-import com.backendproject.userapi.model.User;
 
 public class UserDTO {
     private String nome;
@@ -12,18 +11,6 @@ public class UserDTO {
     private String telefone;
     private Date dataCadastro;
     private String key;
-
-
-    public static UserDTO convert(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setNome(user.getNome());
-        userDTO.setEndereco(user.getEndereco());
-        userDTO.setCpf(user.getCpf());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setTelefone(user.getTelefone());
-        userDTO.setDataCadastro(user.getDataCadastro());
-        return userDTO;
-    }
 
     public String getKey() {
         return key;

@@ -1,7 +1,5 @@
 package com.backendproject.shoppingclient.dto;
 
-import com.backendproject.productapi.model.Category;
-
 import jakarta.validation.constraints.NotNull;
 
 public class CategoryDTO {
@@ -22,12 +20,5 @@ public class CategoryDTO {
     }
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public static CategoryDTO convert(Category category) {
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(category.getId());
-        categoryDTO.setNome(category.getNome());
-        return categoryDTO;
     }
 }
