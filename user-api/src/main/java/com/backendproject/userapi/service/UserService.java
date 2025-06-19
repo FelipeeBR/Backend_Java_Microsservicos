@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.backendproject.shoppingclient.dto.UserDTO;
-import com.backendproject.shoppingclient.exception.UserNotFoundException;
 import com.backendproject.userapi.model.User;
 import com.backendproject.userapi.repository.UserRepository;
+import com.backendproject.shoppingclient.dto.UserDTO;
+import com.backendproject.shoppingclient.exception.UserNotFoundException;
 import com.backendproject.userapi.converter.DTOConverter;
 
 @Service

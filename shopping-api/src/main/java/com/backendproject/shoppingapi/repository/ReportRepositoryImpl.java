@@ -6,8 +6,8 @@ import java.util.List;
 
 import jakarta.persistence.Query;
 
-import com.backendproject.shoppingclient.dto.ShopReportDTO;
 import com.backendproject.shoppingapi.model.Shop;
+import com.backendproject.shoppingclient.dto.ShopReportDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
