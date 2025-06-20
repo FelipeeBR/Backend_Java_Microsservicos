@@ -19,3 +19,16 @@ Cada microsserviço é implementado com Spring Boot, utiliza comunicação REST 
 - PostgreSQL
 - PGAdmin
 - Postman (para testes de APIs)
+
+## 🛠️ Como Executar Localmente
+### Pré-requisitos
+- Docker e Docker Compose instalados
+- Maven instalado (ou uso do Maven Wrapper)
+- JDK configurado
+
+## 📦 Estrutura dos Microsserviços
+Cada serviço segue o padrão MVC com as camadas:
+- Controller: exposição das APIs REST
+- Service: regras de negócio
+- Repository: acesso a dados com Spring Data
+- DTO: transporte de dados entre camadas e entre APIs
