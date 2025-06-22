@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 import com.backendproject.shoppingapi.model.Shop;
 import com.backendproject.shoppingclient.dto.ShopReportDTO;
@@ -30,7 +31,7 @@ public class ReportRepositoryImpl implements ReportRepository {
             sb.append("and s.total >= :valorMinimo ");
         }
 
-        Query query = entityManager.createQuery(sb.toString());
+        TypedQuery<Shop> query = entityManager.createQuery(sb.toString(), Shop.class);
         query.setParameter("dataInicio", dataInicio);
 
         if(dataFim != null) {
