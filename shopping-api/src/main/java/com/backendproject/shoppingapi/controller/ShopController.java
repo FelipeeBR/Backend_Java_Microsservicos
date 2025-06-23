@@ -38,7 +38,7 @@ public class ShopController {
 
     @GetMapping("/shopping/shopByDate")
     public List<ShopDTO> getShops(@RequestBody ShopDTO shopDTO) {
-        List<ShopDTO> produtos = shopService.getByDate(shopDTO);
+        List<ShopDTO> produtos = shopService.getByData(shopDTO);
         return produtos;
     }
 

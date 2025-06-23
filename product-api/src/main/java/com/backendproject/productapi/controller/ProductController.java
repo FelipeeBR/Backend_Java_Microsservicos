@@ -23,24 +23,26 @@ public class ProductController {
 
     @GetMapping("/product")
     public List<ProductDTO> getProducts() {
-        List<ProductDTO> produtos  = productService.getAll();
-        return produtos;
+        return productService.getAll();
+    }
+
+    @GetMapping("/product/category/{categoryId}")
+    public List<ProductDTO> getProductByCategory(@PathVariable Long categoryId) {
+        return productService.getProductByCategoryId(categoryId);
     }
 
     @GetMapping("/product/{productIdentifier}")
-        ProductDTO findById(@PathVariable String productIdentifier) {
+    public ProductDTO findById(@PathVariable String productIdentifier) {
         return productService.findByProductIdentifier(productIdentifier);
     }
 
     @PostMapping("/product")
-    ProductDTO newProduct(@Valid @RequestBody ProductDTO productDTO) {
-        return productService.save(productDTO);
+    public ProductDTO newProduct(@Valid @RequestBody ProductDTO dto) {
+        return productService.save(dto);
     }
 
     @DeleteMapping("/product/{id}")
-    ProductDTO delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
-        return null;
     }
-
 }
