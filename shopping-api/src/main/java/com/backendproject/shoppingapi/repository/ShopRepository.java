@@ -10,9 +10,9 @@ import com.backendproject.shoppingapi.model.Shop;
 
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Long>, ReportRepository {
-    public List<Shop> findByUserIdentifier(String userIdentifier);
+    List<Shop> findByUserIdentifier(String userIdentifier);
 
-    public List<Shop> findByTotalGreaterThan(Float total);
+    List<Shop> findByTotalGreaterThan(Float total);
 
-    public List<Shop> findByDataGreaterThan(Date data);
+    List<Shop> findByDateGreaterThan(Date date);
 }

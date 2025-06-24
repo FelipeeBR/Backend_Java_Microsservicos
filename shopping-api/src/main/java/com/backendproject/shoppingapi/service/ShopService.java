@@ -43,7 +43,7 @@ public class ShopService {
     }
 
     public List<ShopDTO> getByData(ShopDTO dto) {
-        List<Shop> compras = shopRepository.findByDataGreaterThan(dto.getDate());
+        List<Shop> compras = shopRepository.findByDateGreaterThan(dto.getDate());
         return compras.stream()
                 .map(DTOConverter::convert)
                 .collect(Collectors.toList());
