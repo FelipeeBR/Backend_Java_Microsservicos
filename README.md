@@ -19,6 +19,7 @@ Cada microsserviço é implementado com Spring Boot, utiliza comunicação REST 
 - PostgreSQL
 - PGAdmin
 - Postman (para testes de APIs)
+- Kubernetes
 
 ## 🛠️ Como Executar Localmente
 ### Pré-requisitos
